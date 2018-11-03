@@ -1,12 +1,10 @@
 # seedcup2018
 
-[主页](https://uniqueai.me/seedcup2018/)
+[mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
 
-[主要参考](https://github.com/wabyking/TextClassificationBenchmark)
+code about [种子杯](http://rank.dian.org.cn/static/index.html)
 
-关于[种子杯复赛](http://rank.dian.org.cn/static/index.html)的代码, 总行数200行左右
-
-暂时没有训练数据
+暂时没有公开的训练数据
 
 ## 记号
 
@@ -28,23 +26,23 @@
 
 ![data.png](visualization.png)
 
-## directory
+## directory structure
 
-    ├── answerlastlong.txt  预测后的文件
-    ├── config.py           主要配置文件
-    ├── data                处理后的数据;运行datahelper后生成的文件
-    │   ├── test_w.tsv      测试集
-    │   ├── train_w.tsv     训练集
-    │   ├── val_w.tsv       验证集
-    │   └── w300.txt        词向量模型
-    ├── datahelper.py       预处理数据
-    ├── main.py             主程序
-    ├── model\              所使用的模型
-    ├── doc\                比赛说明文档及报告
-    ├── raw\                比赛方提供的数据
-    ├── train.py            提供训练代码支持
-    ├── util.py             提供数据处理支持
-    └── ...                 其他文件
+    .
+    ├── config.py           
+    ├── data                
+    │   ├── test_w.tsv      
+    │   ├── train_w.tsv     
+    │   ├── val_w.tsv       
+    │   └── w300.txt        gensim model saved
+    ├── datahelper.py       preprocess data
+    ├── main.py             
+    ├── model\              model usaged
+    ├── doc\                context explain and report
+    ├── raw\                data the official provide
+    ├── train.py            support model train
+    ├── util.py             support data process
+    └── ...                 other files
 
 ## how to run
 
