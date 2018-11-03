@@ -46,7 +46,6 @@ def init_workspace():
 
 
 def get_pred_list(model, buck_iter):
-    # use_pandas: whether return preds list or a pandas file build from %template_file%
     model.eval()
     model_preds = [[], [], []]
     for _, batch in enumerate(buck_iter):

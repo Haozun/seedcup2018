@@ -1,10 +1,19 @@
 # seedcup2018
 
-[mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
+## Intro
 
-code about [种子杯](http://rank.dian.org.cn/static/index.html)
+this is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a chinese text multi-classification contest
 
-the training data can't post publicly
+The project is around 300 lines, only has basic function, and are shared for educational purpose
+
+It shows how to build word embedding by **gensim** and use **torchtext** to process the data, and, finally training a **BLSTM** model in **pytorch**.
+
+*the training data can't post publicly*
+
+## Refer
+
+1. [mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
+2. [Attention-Based BLSTM](http://www.aclweb.org/anthology/P16-2034)
 
 ## denote
 
@@ -23,8 +32,13 @@ the training data can't post publicly
 
 ## data view
 
+item_id | title_characters        |title_words     |description_characters|  description_words |      cate1_id        |cate2_id|        cate3_id|
+--|--|--|--|--|--|--|--
+a38b804b6eb25c6a39eef30e54060ce1|c51,c38,c48,c45,c10,c7,c288,c18,c15,c7,c255,c305,c18,c56,c762,c549,c1051,c18,c1051,c147,c955,c259,c18|w27,w12,w22,w215,w11,w875,w1242,w14391,w4018,w5656|c32,c540,c101,c275,c613,c61,c92,c54,c467,c354,c361,c61,c154,c183,c247,c71,c398,c21,c31,c2,c32,c23,c135,c229,c1175,c61,c76,c23,c135,c982,c71,c2,c1175,c633,c195,c61,c62,c197,c61,c14,c1163,c166,c31|w8,w295,w2132,w13,w86,w1830,w3009,w13,w167,w395,w1499,w4,w7,w8,w87,w3584,w13,w93,w87,w2014,w3843,w13,w111,w13,w14,w2867,w7|2|13|13
+
 ![data.png](visualization.png)
 
+*one catej_id corresponding only one catei_id, for j>i*
 ## directory structure
 
     .
