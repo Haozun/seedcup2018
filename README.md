@@ -1,4 +1,4 @@
-# Intro
+# seedcup2018
 
 [主页](https://uniqueai.me/seedcup2018/)
 
@@ -8,7 +8,7 @@
 
 暂时没有训练数据
 
-# env prerequisite
+## env prerequisite
 
 + 不限平台
 + python 3.*(以下没有特别说明,均为2018-10最新)
@@ -20,11 +20,11 @@
     + torchtext
   + gensim
 
-# 数据概览
+## 数据概览
 
 ![data.png](visualization.png)
 
-# 目录结构
+## 目录结构
 
     .                       
     ├── answerlastlong.txt  预测后的文件
@@ -46,7 +46,7 @@
     └── util.py             提供数据处理支持
 
 
-# 运行
+## 运行
 
 如果缺失data数据,用 `py datahelper.py` 生成(需要`raw/`文件夹的原始数据)
 
@@ -56,13 +56,13 @@
 
 `py main.py abc`
 
-## 载入模型
+### 载入模型
 
 修改 `config.py` 里面的 `LAST_EPOCH` 参数 ; 并把 `LOADMODEL` 参数设置为 模型路径
 
  `py main.py abc`
 
-## 手动修改答案
+### 手动修改答案
 
 使用 ipython 逐条运行 `main.py` (其实也就5行)
 
@@ -70,4 +70,4 @@
 
 此处返回值为 `pd.DataFrame` 格式, 可以手动修改
 
-# 参数接口
+## 参数接口
