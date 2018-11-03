@@ -1,4 +1,5 @@
 # sys.argv.append("projectName")
+# tr.device(1)
 from config import *
 import util
 import train
@@ -14,6 +15,7 @@ if LOADMODEL is None:
 print("Start Training")
 train.train_model(model, train_iter, val_iter, max_epoch=EPOCHS, last_epoch=LAST_EPOCH)
 print("Predict testset")
-ans = util.get_pred_list(model, test_iter, use_pandas=True)
+ans = util.get_pred_pd(model, test_iter)
+# print(util.creterion_val(ans))
 ans.to_csv(prodirectory + "/answer.txt", index=False, sep='\t')
 print("Answer saved")

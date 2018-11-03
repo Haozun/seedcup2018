@@ -23,8 +23,6 @@ def train_model(model, train_iter, val_iter, max_epoch, last_epoch=0):
         step = len(train_iter) // 10
         for i, batch in enumerate(train_iter):
             text = batch.w[0]
-            if text.shape[0] != BATCH_SIZE:
-                continue
             optimizer.zero_grad()
             y_true = [batch.cate1_id, batch.cate2_id, batch.cate3_id]
             y_pred = model(text.to(DEVICE))

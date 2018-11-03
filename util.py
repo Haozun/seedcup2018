@@ -1,5 +1,6 @@
 from config import *
 import os
+import numpy as np
 import pandas as pd
 from torchtext import data, vocab
 from sklearn.metrics import f1_score
@@ -22,18 +23,11 @@ def init_workspace():
                             include_lengths=True, batch_first=True, fix_length=MAX_SEQ_LEN)
 
     print("load torch data ")
-    train = data.TabularDataset(TRAINFILE, 'tsv', skip_header=True,
-                                fields=[('w', word_field),
-                                        ('cate1_id', multi_classes[0]),
-                                        ('cate2_id', multi_classes[1]),
-                                        ('cate3_id', multi_classes[2])])
-    valid = data.TabularDataset(VALFILE, 'tsv', skip_header=True,
-                                fields=[('w', word_field),
-                                        ('cate1_id', multi_classes[0]),
-                                        ('cate2_id', multi_classes[1]),
-                                        ('cate3_id', multi_classes[2])])
-    test = data.TabularDataset(TESTFILE, 'tsv', skip_header=True,
-                               fields=[('w', word_field)])
+    class_fields = [('w', word_field),
+                    ('cate1_id', multi_classes[0]), ('cate2_id', multi_classes[1]), ('cate3_id', multi_classes[2])]
+    train = data.TabularDataset(TRAINFILE, 'tsv', skip_header=True, fields=class_fields)
+    valid = data.TabularDataset(VALFILE, 'tsv', skip_header=True, fields=class_fields)
+    test = data.TabularDataset(TESTFILE, 'tsv', skip_header=True, fields=[('w', word_field)])
     # discretization
     word_field.build_vocab(train, valid, test)
 
@@ -51,53 +45,50 @@ def init_workspace():
     return word_field.vocab.vectors, trainiter, valiter, testiter
 
 
-def get_pred_list(model, buck_iter, use_pandas=False,template_file=OTEST):
+def get_pred_list(model, buck_iter):
     # use_pandas: whether return preds list or a pandas file build from %template_file%
     model.eval()
     model_preds = [[], [], []]
     for _, batch in enumerate(buck_iter):
         text = batch.w[0]
-        residue = text.shape[0]
-        if residue != BATCH_SIZE:
-            text = tr.cat((text, tr.ones(BATCH_SIZE - residue, MAX_SEQ_LEN, dtype=tr.int64)))
-            model_preds_batch = model(text.to(DEVICE))
-            for i in range(3):
-                model_preds[i] += model_preds_batch[i].argmax(1).tolist()[:residue]
-        else:
-            model_preds_batch = model(text.to(DEVICE))
-            for i in range(3):
-                model_preds[i] += model_preds_batch[i].argmax(1).tolist()
-    if use_pandas is not False:
-        discretize(model_preds, reverse=True)
-
-        ans = pd.read_csv(template_file, sep='\t')
-        if template_file is OTEST:
-            ans.drop(columns=["title_characters", "title_words", "description_characters", "description_words"],
-                     inplace=True)
-
+        model_preds_batch = model(text.to(DEVICE))
         for i in range(3):
-            for j in range(len(ans)):
-                ans.at[j, "cate%d_id" % (i + 1)] = model_preds[i][j]
-            ans["cate%d_id" % (i + 1)] = ans["cate%d_id" % (i + 1)].astype(int)
-        return ans
-    else:
-        return model_preds
+            model_preds[i] += model_preds_batch[i].argmax(1).tolist()
+
+    return model_preds
 
 
-def creterion_val(preds_list, use_pd=valid_set):  # implicit: if preds_list is list, it will be changed
+def get_pred_pd(model, buck_iter, template_file=OTEST):
+    pred_list = get_pred_list(model, buck_iter)
+    discretize(pred_list, reverse=True)
+
+    ans = pd.read_csv(template_file, sep='\t')
+    if template_file is OTEST:
+        ans.drop(columns=["title_characters", "title_words", "description_characters", "description_words"],
+                 inplace=True)
+
+    for i in range(3):
+        for j in range(len(ans)):
+            ans.at[j, "cate%d_id" % (i + 1)] = pred_list[i][j]
+        ans["cate%d_id" % (i + 1)] = ans["cate%d_id" % (i + 1)].astype(int)
+    return ans
+
+
+def creterion_val(preds_list, df=valid_set):  # implicit: if preds_list is list, it will be changed
     if type(preds_list) is pd.core.frame.DataFrame:
-        f = [f1_score(use_pd["cate%d_id" % (i + 1)], preds_list["cate%d_id" % (i + 1)], average="macro") for i in
+        f = [f1_score(df["cate%d_id" % (i + 1)], preds_list["cate%d_id" % (i + 1)], average="macro") for i in
              range(3)]
-        fa = [f1_score(use_pd["cate%d_id" % (i + 1)], preds_list["cate%d_id" % (i + 1)], average="micro") for i in
+        fa = [f1_score(df["cate%d_id" % (i + 1)], preds_list["cate%d_id" % (i + 1)], average="micro") for i in
               range(3)]
-        fw = np.dot([0.1, 0.3, 0.6], f)
     else:
         discretize(preds_list, reverse=True)
-        f = [f1_score(use_pd["cate%d_id" % (i + 1)], preds_list[i], average="macro") for i
+        f = [f1_score(df["cate%d_id" % (i + 1)], preds_list[i], average="macro") for i
              in range(3)]
-        fa = [f1_score(use_pd["cate%d_id" % (i + 1)], preds_list[i], average="micro") for i
+
+        fa = [f1_score(df["cate%d_id" % (i + 1)], preds_list[i], average="micro") for i
               in range(3)]
-        fw = np.dot([0.1, 0.3, 0.6], f)
+    
+    fw = np.dot([0.1, 0.3, 0.6], f)
     return f + fa + [fw]
 
 
@@ -105,6 +96,7 @@ def log_and_print(eval_res):
     if type(eval_res[0]) is tr.Tensor:
         file = open(prodirectory + "/loss", 'a')
         eval_str = "loss %.4f %.4f %.4f %.4f \n" % tuple(eval_res)
+        # print(eval_res)
         file.write(eval_str)
     else:
         file = open(prodirectory + "/log", 'a')
