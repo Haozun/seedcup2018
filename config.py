@@ -18,10 +18,10 @@ CATE3_NUM = 265
 
 MAX_SEQ_LEN = 200 
 
-# %% about model
-
 LOADMODEL=None
 LAST_EPOCH=0
+# %% model parameter
+
 EPOCHS = 20
 DROPOUT = 0.2  # default 0.2
 HIDDEN_DIM = 256

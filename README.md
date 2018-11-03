@@ -74,7 +74,7 @@ after run
 
 you will get a `df` ans
 
-## 参数
+## model parameters
 
 name | usage
 --|--
@@ -85,9 +85,9 @@ NUM_LAYER=2 | num of recurrent layers, stacking two LSTM together to form a stac
 DROPOUT | dropout probability of Dropout layer
 wei_criterion | used to calculate total loss
 
-其他参数见`config.py`
+others refer to `config.py`
 
-## 接口
+## interface
 
 func    |usage
 --|--
