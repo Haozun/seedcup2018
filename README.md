@@ -4,9 +4,14 @@
 
 this is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a chinese text multi-classification contest
 
-The project is around 300 lines, only has basic function, and are shared for educational purpose
-
 It shows how to build word embedding by **gensim** and use **torchtext** to process the data, and, finally training a **BLSTM** model in **pytorch**.
+
+### project feature
+
++ around 300 lines
++ only has basic function
++ shared for educational purpose
++ scored 86.42(one submit) in semi-final, ranked in the 6th echelone
 
 *the training data can't post publicly*
 
