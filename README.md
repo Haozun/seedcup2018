@@ -1,37 +1,73 @@
-## Welcome to GitHub Pages
+# Intro
 
-You can use the [editor on GitHub](https://github.com/Haozun/seedcup2018/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+[主页](https://uniqueai.me/seedcup2018/)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[主要参考](https://github.com/wabyking/TextClassificationBenchmark)
 
-### Markdown
+关于[种子杯复赛](http://rank.dian.org.cn/static/index.html)的代码, 总行数300行左右
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+暂时没有训练数据
 
-```markdown
-Syntax highlighted code block
+# env prerequisite
 
-# Header 1
-## Header 2
-### Header 3
++ 不限平台
++ python 3.*(以下没有特别说明,均为2018-10最新)
 
-- Bulleted
-- List
+  + numpy
+  + pandas
+  + sklearn
+  + pytorch(pytorch-cpu allowed)
+    + torchtext
+  + gensim
 
-1. Numbered
-2. List
+# 数据概览
 
-**Bold** and _Italic_ and `Code` text
+![data.png](visualization.png)
 
-[Link](url) and ![Image](src)
-```
+# 目录结构
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+    .                       
+    ├── answerlastlong.txt  预测后的文件
+    ├── config.py           
+    ├── data                处理后的数据
+    │   ├── test_w.tsv      
+    │   ├── train_w.tsv     
+    │   ├── val_w.tsv       
+    │   └── w300.txt        词向量模型
+    ├── datahelper.py       
+    ├── dime300             某个保存训练结果的文件夹
+    │   └── 13.pth          用来载入的模型
+    ├── main.py             主程序
+    ├── model               
+    │   └── BNBLSTMr.py     
+    ├── raw
+    │   └── ...          比赛方提供的数据
+    ├── train.py            提供训练代码支持
+    └── util.py             提供数据处理支持
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Haozun/seedcup2018/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+# 运行
 
-### Support or Contact
+如果缺失data数据,用 `py datahelper.py` 生成(需要`raw/`文件夹的原始数据)
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+运行时首先保证你当前的目录结构与上面一致
+
+假设你要保存模型在 `abc` 文件夹
+
+`py main.py abc`
+
+## 载入模型
+
+修改 `config.py` 里面的 `LAST_EPOCH` 参数 ; 并把 `LOADMODEL` 参数设置为 模型路径
+
+ `py main.py abc`
+
+## 手动修改答案
+
+使用 ipython 逐条运行 `main.py` (其实也就5行)
+
+`ans = util.get_pred_list(model, test_iter, use_pandas=True)`
+
+此处返回值为 `pd.DataFrame` 格式, 可以手动修改
+
+# 参数接口
