@@ -4,17 +4,16 @@
 
 code about [种子杯](http://rank.dian.org.cn/static/index.html)
 
-暂时没有公开的训练数据
+the training data can't post publicly
 
-## 记号
+## denote
 
 `typedef pandas.DataFrame df`
 
 ## env prerequisite
 
-+ 不限平台
-+ python 3.*(以下没有特别说明,均为2018-10最新)
-
++ OS: run on windows and linux
++ python 3.*(below are newest in 2018-10)
   + pandas
     + numpy
   + sklearn
