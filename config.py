@@ -27,7 +27,7 @@ DROPOUT = 0.2  # default 0.2
 HIDDEN_DIM = 256
 GRAD_CLIP = 0.1  # default, Gradient explosion
 NUM_LAYERS = 2  # Stack
-BATCH_SIZE = 64
+BATCH_SIZE = 640
 
 def wei_criterion(x):
     return 0.1 * x[0] + 0.3 * x[1] + 0.6 * x[2]

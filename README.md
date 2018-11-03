@@ -24,11 +24,11 @@
     + torchtext
   + gensim
 
-## 数据概览
+## data view
 
 ![data.png](visualization.png)
 
-## 目录结构
+## directory
 
     ├── answerlastlong.txt  预测后的文件
     ├── config.py           主要配置文件
@@ -46,39 +46,41 @@
     ├── util.py             提供数据处理支持
     └── ...                 其他文件
 
-## 运行
+## how to run
 
-如果缺失data数据,用 `py datahelper.py` 生成(需要`raw/`文件夹的原始数据)
+generate processed data in `data/` (need data in `raw/`)
+>`py datahelper.py` 
 
-运行时首先保证你当前的目录结构与上面一致
+suppose you want to save model in  `abc` dir
 
-假设你要保存模型在 `abc` 文件夹
+>`py main.py abc`
 
-`py main.py abc`
+finally it will generate predicate `txt` for `raw\test_b.txt`
 
-输入`data\`里的数据,将会生成对`data\test_w.tsv` 的预测结果
+### load model and train
 
-### 载入模型
+in `config.py`
 
-修改 `config.py` 里面的 `LAST_EPOCH` 参数 ; 并把 `LOADMODEL` 参数设置为 模型路径
+change para `LAST_EPOCH`  ; and `LOADMODEL` to where the model saved
 
- `py main.py abc`
+>`py main.py abc`
 
-### 手动修改答案
+### modify answer manual
 
-使用 ipython 逐条运行 `main.py` (其实也就5行)
+use ipython to run `main.py`
 
-`ans = util.get_pred_list(model, test_iter, use_pandas=True)`
+after run
+>`ans = util.get_pred_list(model, test_iter, use_pandas=True)`
 
-此处返回值为 `pd.DataFrame` 格式, 可以手动修改
+you will get a `df` ans
 
 ## 参数
 
 name | usage
 --|--
-MAX_EPOCH | 训练轮数
-BATCH_SIZE=640  | 设置为64时,占用GPU 1G; 增大可加速训练, 但是精度下降 ; 建议设置大点
-MAX_SEQ_LEN=200 | 最大的`t_w+d_w`的长度
+MAX_EPOCH | num of train epoch
+BATCH_SIZE=640  | usage 1G GPU when set to 64
+MAX_SEQ_LEN=200 | fixed and max length of word
 NUM_LAYER=2 | num of recurrent layers, stacking two LSTM together to form a stacked LSTM, with the second LSTM taking in outputs of the first LSTM and computing the final results.
 DROPOUT | dropout probability of Dropout layer
 wei_criterion | used to calculate total loss
@@ -89,6 +91,6 @@ wei_criterion | used to calculate total loss
 
 func    |usage
 --|--
-get_pred_list | 得到 model 对 buck_iter 的预测,返回`2dlist`
-get_pred_pd   | 得到 model 对 buck_iter 的预测,返回`pd`
-creterion_val | 输入模型的预测值(2dlist或df),输出对指定tsv文件的预测分数
+get_pred_list | get predict for  buck_iter, return `2dlist`
+get_pred_pd   | get predict for  buck_iter, return `pd`
+creterion_val | input `2dlist` or `df`, return the score in validset
