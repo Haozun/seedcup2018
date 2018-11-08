@@ -13,8 +13,6 @@ It shows how to build word embedding by **gensim** and use **torchtext** to proc
 + shared for educational purpose
 + scored 86.42(one submit, single model) in semi-final, ranked in the 6th echelone
 
-*the training data can't post publicly*
-
 ## Refer
 
 1. [mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
@@ -36,6 +34,8 @@ It shows how to build word embedding by **gensim** and use **torchtext** to proc
   + gensim
 
 ## data view
+
+[dataset location](https://www.kaggle.com/lyf9828/seedcup2018/home)
 
 item_id | title_characters        |title_words     |description_characters|  description_words |      cate1_id        |cate2_id|        cate3_id|
 --|--|--|--|--|--|--|--
