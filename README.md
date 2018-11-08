@@ -2,7 +2,7 @@
 
 ## Intro
 
-this is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a chinese text multi-classification contest
+This is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a chinese text multi-classification contest
 
 It shows how to build word embedding by **gensim** and use **torchtext** to process the data, and, finally training a **BLSTM** model in **pytorch**.
 
@@ -13,7 +13,7 @@ It shows how to build word embedding by **gensim** and use **torchtext** to proc
 + shared for educational purpose
 + scored 86.42 in semi-final, ranked in the 6th echelone
 
-## Refer
+## refer
 
 1. [mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
 2. [Attention-Based BLSTM](http://www.aclweb.org/anthology/P16-2034)
@@ -57,7 +57,7 @@ a38b804b6eb25c6a39eef30e54060ce1|c51,c38,c48,c45,c10,c7,c288,c18,c15,c7,c255,c30
     ├── main.py             
     ├── model\              model usaged
     ├── doc\                context explain and report
-    ├── raw\                data the official provide
+    ├── raw\                here put data provided
     ├── train.py            support model train
     ├── util.py             support data process
     └── ...                 other files
@@ -95,7 +95,6 @@ you will get a `df` ans
 name | usage
 --|--
 MAX_EPOCH | num of train epoch
-BATCH_SIZE=640  | usage 1G GPU when set to 64
 MAX_SEQ_LEN=200 | fixed and max length of word
 NUM_LAYER=2 | num of recurrent layers, stacking two LSTM together to form a stacked LSTM, with the second LSTM taking in outputs of the first LSTM and computing the final results.
 DROPOUT | dropout probability of Dropout layer
