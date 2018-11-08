@@ -11,7 +11,7 @@ It shows how to build word embedding by **gensim** and use **torchtext** to proc
 + around 300 lines
 + only has basic function
 + shared for educational purpose
-+ scored 86.42(one submit, single model) in semi-final, ranked in the 6th echelone
++ scored 86.42 in semi-final, ranked in the 6th echelone
 
 ## Refer
 
