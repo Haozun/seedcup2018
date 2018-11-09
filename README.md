@@ -1,28 +1,26 @@
-# seedcup2018
-
-## Intro
+# Intro
 
 This is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a chinese text multi-classification contest
 
 It shows how to build word embedding by **gensim** and use **torchtext** to process the data, and, finally training a **BLSTM** model in **pytorch**.
 
-### project feature
+## project feature
 
 + around 300 lines
 + only has basic function
 + shared for educational purpose
 + scored 86.42 in semi-final, ranked in the 6th echelone
 
-## refer
+# refer
 
 1. [mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
 2. [Attention-Based BLSTM](http://www.aclweb.org/anthology/P16-2034)
 
-## denote
+# denote
 
 `typedef pandas.DataFrame df`
 
-## env prerequisite
+# env prerequisite
 
 + OS: run on windows and linux
 + python 3.*(below are newest in 2018-10)
@@ -33,7 +31,7 @@ It shows how to build word embedding by **gensim** and use **torchtext** to proc
     + torchtext
   + gensim
 
-## data view
+# data view
 
 [dataset location](https://www.kaggle.com/lyf9828/seedcup2018/home)
 
@@ -44,7 +42,8 @@ a38b804b6eb25c6a39eef30e54060ce1|c51,c38,c48,c45,c10,c7,c288,c18,c15,c7,c255,c30
 <!-- ![data.png](visualization.png) -->
 <img align="right" src= "visualization.png">
 *one catej_id corresponding only one catei_id, for j>i*
-## directory structure
+
+# directory structure
 
     .
     ├── config.py           
@@ -62,7 +61,7 @@ a38b804b6eb25c6a39eef30e54060ce1|c51,c38,c48,c45,c10,c7,c288,c18,c15,c7,c255,c30
     ├── util.py             support data process
     └── ...                 other files
 
-## how to run
+# how to run
 
 generate processed data in `data/` (need data in `raw/`)
 >`py datahelper.py` 
@@ -73,7 +72,7 @@ suppose you want to save model in  `abc` dir
 
 finally it will generate predicate `txt` for `raw\test_b.txt`
 
-### load model and train
+## load model and train
 
 in `config.py`
 
@@ -81,7 +80,7 @@ change para `LAST_EPOCH`  ; and `LOADMODEL` to where the model saved
 
 >`py main.py abc`
 
-### modify answer manual
+## modify answer manual
 
 use ipython to run `main.py`
 
@@ -90,7 +89,7 @@ after run
 
 you will get a `df` ans
 
-## model parameters
+# model parameters
 
 name | usage
 --|--
@@ -102,7 +101,7 @@ wei_criterion | used to calculate total loss
 
 others refer to `config.py`
 
-## interface
+# interface
 
 func    |usage
 --|--
