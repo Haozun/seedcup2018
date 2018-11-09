@@ -43,7 +43,11 @@ a38b804b6eb25c6a39eef30e54060ce1|c51,c38,c48,c45,c10,c7,c288,c18,c15,c7,c255,c30
 <img align="right" src= "visualization.png">
 *one catej_id corresponding only one catei_id, for j>i*
 
+<<<<<<< HEAD
 # directory structure
+=======
+## directory structure
+>>>>>>> d025d735022d4978c24d44e46af2c3f3fb42ccb7
 
     .
     ├── config.py           
