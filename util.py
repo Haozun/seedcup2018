@@ -68,24 +68,19 @@ def get_pred_pd(model, buck_iter, template_file=OTEST):
 
     for i in range(3):
         for j in range(len(ans)):
-            ans.at[j, "cate%d_id" % (i + 1)] = pred_list[i][j]
-        ans["cate%d_id" % (i + 1)] = ans["cate%d_id" % (i + 1)].astype(int)
+            ans.at[j, f"cate{i+1}_id"] = pred_list[i][j]
+        ans[f"cate{i+1}_id"] = ans[f"cate{i+1}_id"].astype(int)
     return ans
 
 
 def creterion_val(preds_list, df=valid_set):  # implicit: if preds_list is list, it will be changed
     if type(preds_list) is pd.core.frame.DataFrame:
-        f = [f1_score(df["cate%d_id" % (i + 1)], preds_list["cate%d_id" % (i + 1)], average="macro") for i in
-             range(3)]
-        fa = [f1_score(df["cate%d_id" % (i + 1)], preds_list["cate%d_id" % (i + 1)], average="micro") for i in
-              range(3)]
+        f = [f1_score(df[f"cate{i+1}_id"], preds_list[f"cate{i+1}_id"], average="macro") for i in range(3)]
+        fa = [f1_score(df[f"cate{i+1}_id"], preds_list[f"cate{i+1}_id"], average="micro") for i in range(3)]
     else:
         discretize(preds_list, reverse=True)
-        f = [f1_score(df["cate%d_id" % (i + 1)], preds_list[i], average="macro") for i
-             in range(3)]
-
-        fa = [f1_score(df["cate%d_id" % (i + 1)], preds_list[i], average="micro") for i
-              in range(3)]
+        f = [f1_score(df[f"cate{i+1}_id"], preds_list[i], average="macro") for i in range(3)]
+        fa = [f1_score(df[f"cate{i+1}_id"], preds_list[i], average="micro") for i in range(3)]
     
     fw = np.dot([0.1, 0.3, 0.6], f)
     return f + fa + [fw]
