@@ -1,24 +1,26 @@
-# Intro
+# What's this
 
-This is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a chinese text multi-classification contest
+This is the code about [种子杯](http://rank.dian.org.cn/static/index.html), a small chinese text multi-classification contest
 
-It shows how to build word embedding by **gensim** and use **torchtext** to process the data, and, finally training a **BLSTM** model in **pytorch**.
+It shows how to build word embedding by **gensim** and use **torchtext** to process the data, and, finally training a **Attention-Based BLSTM** model in **pytorch**.
 
 ## project feature
 
 + around 300 lines
 + only has basic function
 + shared for educational purpose
-+ scored 86.42 in semi-final, ranked in the 6th echelone
++ f1_score(...,'macro')==86.42 in semi-final, ranked in the 6th echelone
 
 # refer
 
-1. [mainRefer](https://github.com/wabyking/TextClassificationBenchmark)
+1. [mainRefer](https://github.com/wabyking/TextClassificationBenchmark/blob/master/models/LSTMwithAttention.py)
 2. [Attention-Based BLSTM](http://www.aclweb.org/anthology/P16-2034)
 
-# denote
+# #notation
 
-`typedef pandas.DataFrame df`
+name | means
+--|--
+df pandas.DataFrame 
 
 # env prerequisite
 
@@ -100,11 +102,3 @@ DROPOUT | dropout probability of Dropout layer
 wei_criterion | used to calculate total loss
 
 others refer to `config.py`
-
-# interface
-
-func    |usage
---|--
-get_pred_list | get predict for  buck_iter, return `2dlist`
-get_pred_pd   | get predict for  buck_iter, return `pd`
-creterion_val | input `2dlist` or `df`, return the score in validset
